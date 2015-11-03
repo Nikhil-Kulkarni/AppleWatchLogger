@@ -21,7 +21,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITableViewDataSource
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
         if (WCSession.isSupported()) {
             print("Session is supported")
             let session = WCSession.defaultSession()
@@ -65,7 +64,6 @@ class ViewController: UIViewController, WCSessionDelegate, UITableViewDataSource
         for str in cArr {
             content = "\(content)\n\(str)"
         }
-        
         do {
             try content.writeToFile(fileName, atomically: true, encoding: NSStringEncodingConversionOptions.AllowLossy.rawValue)
         }
@@ -83,6 +81,7 @@ class ViewController: UIViewController, WCSessionDelegate, UITableViewDataSource
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             self.statusLabel.text = "Writing content"
         }
+        
         let paths:NSArray = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let documentDirectory = paths.objectAtIndex(0)
         let currentDate = CFAbsoluteTimeGetCurrent()
@@ -99,6 +98,9 @@ class ViewController: UIViewController, WCSessionDelegate, UITableViewDataSource
             try content.writeToFile(fileName, atomically: true, encoding: NSStringEncodingConversionOptions.AllowLossy.rawValue)
         }
         catch {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.statusLabel.text = "Writing content failed"
+            })
         }
     }
 }

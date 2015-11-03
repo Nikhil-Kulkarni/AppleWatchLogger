@@ -30,6 +30,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
 
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
+        print("awakeWithContext")
     }
 
     override func willActivate() {
@@ -40,6 +41,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     }
     
     override func didAppear() {
+        print("didAppear")
         dict  = NSMutableDictionary(dictionary: arr)
         // Configure interface objects here.
         if (WCSession.isSupported()) {
